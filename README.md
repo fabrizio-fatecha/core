@@ -6,6 +6,20 @@ Ask for product `31,415,926` and you get it back. Ask for a page starting at `1,
 
 I built it as a personal project to see how fast, simple and safe a Spring Boot API can be when the table underneath is huge, and to run it the way I would run a real service: in Docker, on one small server.
 
+## Try it
+
+The API is live. Open the interactive documentation and call it right from your browser:
+
+**https://api.fatecha.com.py/swagger**
+
+Or from a terminal:
+
+```bash
+curl https://api.fatecha.com.py/api/v1/products/77
+```
+
+It is public and has no login, so each IP gets a small number of requests (see [Fair use](#fair-use)).
+
 ## What it does
 
 | Endpoint | What you get |
