@@ -1,0 +1,25 @@
+spring:
+  application:
+    name: core-api
+  autoconfigure:
+    exclude: org.springframework.boot.security.autoconfigure.UserDetailsServiceAutoConfiguration
+  datasource:
+    url: jdbc:postgresql://${DB_HOST:db}:5432/${DB_NAME:core}?ApplicationName=core-api
+    username: ${DB_USER:app_ro}
+    password: ${DB_PASSWORD}
+    hikari:
+      maximum-pool-size: 10
+      connection-timeout: 2000
+      max-lifetime: 1500000
+      leak-detection-threshold: 10000
+
+springdoc:
+  swagger-ui:
+    path: /swagger
+
+app:
+  quota:
+    requests: 10
+    block: 30m
+  bulkhead:
+    permits: 10

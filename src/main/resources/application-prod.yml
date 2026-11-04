@@ -1,0 +1,52 @@
+server:
+  shutdown: graceful
+  server-header: ""
+  forward-headers-strategy: native
+  max-http-request-header-size: 8KB
+  tomcat:
+    connection-timeout: 5s
+    keep-alive-timeout: 15s
+    max-connections: 2048
+    accept-count: 100
+    max-swallow-size: 1MB
+    max-http-form-post-size: 16KB
+    remoteip:
+      remote-ip-header: X-Forwarded-For
+      protocol-header: X-Forwarded-Proto
+      internal-proxies: "172\\.30\\.77\\.\\d{1,3}"
+  error:
+    include-message: never
+    include-stacktrace: never
+    include-binding-errors: never
+    include-exception: false
+
+spring:
+  threads:
+    virtual:
+      enabled: true
+  servlet:
+    multipart:
+      enabled: false
+  web:
+    resources:
+      add-mappings: false
+  lifecycle:
+    timeout-per-shutdown-phase: 20s
+
+management:
+  server:
+    port: 9090
+  endpoints:
+    web:
+      exposure:
+        include: health
+  endpoint:
+    health:
+      show-details: never
+      probes:
+        enabled: true
+
+logging:
+  structured:
+    format:
+      console: ecs

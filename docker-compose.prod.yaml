@@ -1,0 +1,24 @@
+services:
+  nginx:
+    ports:
+      - "${HTTPS_PORT:-443}:443"
+    volumes:
+      - ./nginx/prod:/etc/nginx/conf.d:ro
+      - certs:/etc/letsencrypt:ro
+    command:
+      - /bin/sh
+      - -c
+      - 'while :; do sleep 6h & wait $${!}; nginx -s reload; done & exec nginx -g "daemon off;"'
+
+  certbot-renew:
+    image: certbot/certbot:v5.9.0
+    restart: unless-stopped
+    entrypoint:
+      - /bin/sh
+      - -c
+      - 'trap exit TERM; while :; do certbot renew --quiet; sleep 12h & wait $${!}; done'
+    volumes:
+      - certs:/etc/letsencrypt
+      - acme:/var/www/certbot
+    networks:
+      - edge

@@ -1,0 +1,11 @@
+.git
+.env
+target
+db
+nginx
+*.pdf
+*.md
+docker-compose.yaml
+deploy.sh
+.idea
+.vscode
